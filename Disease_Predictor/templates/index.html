@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; background-color: #f4f4f4; }
+        input, button { padding: 10px; font-size: 16px; width: 300px; margin-bottom: 20px; }
+        .result { background: white; padding: 20px; margin-top: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Disease Predictor</h1>
+    <form method="POST">
+        <label for="symptoms">Enter symptoms (comma separated):</label><br>
+        <input type="text" name="symptoms" id="symptoms" required placeholder="e.g., fever, skin rash"><br>
+        <button type="submit">Predict Diseases</button>
+    </form>
+
+    {% if results %}
+        <div class="result">
+            <h2>Top Disease Predictions:</h2>
+            {% for res in results %}
+                <h3>#{{ loop.index }}: {{ res.Disease }}</h3>
+                <p><strong>Matching Symptoms:</strong> {{ res['Matching Symptoms'] }}</p>
+                <p><strong>Description:</strong> {{ res.Description }}</p>
+                <p><strong>Precautions:</strong></p>
+                <ul>
+                    {% for p in res.Precautions %}
+                        <li>{{ p }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
